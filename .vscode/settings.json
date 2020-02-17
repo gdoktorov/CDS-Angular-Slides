@@ -1,0 +1,15 @@
+{
+    // "workbench.colorTheme": "Solarized Light",
+    "editor.minimap.enabled": false,
+    "spellright.language": [
+        "English (American)",
+        "English (British)"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext",
+        "python",
+        "html"
+    ],
+}

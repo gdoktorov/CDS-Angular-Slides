@@ -1,1 +1,1 @@
-Angular Course for Progress Educational Centre
+Angular Course for CDS Bulgaria
