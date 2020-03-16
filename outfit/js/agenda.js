@@ -6,7 +6,7 @@ var themes = document.querySelectorAll('.themes>article>section');
 var subThemes = document.querySelectorAll('.themes>article>section>ol');
 
 var hours_per_day = 4;
-subThemes.shown = true;
+subThemes.shown = false;
 
 
 window.onload = function(){
@@ -18,7 +18,7 @@ function init(){
     setThemeHours();
     calcTotalHours();
     calcTotalDays();
-    // hideAllNodes(subThemes);
+    subThemes.shown===false && hideAllNodes(subThemes);
     // calcSectionHours();
 }
 function attachEvents(){
@@ -89,26 +89,28 @@ function calcSectionHours(){
     var currentSectionHours = 0;
     for (let i = 0, len = articles.length; i < len ; i++) {
         let sectionHours = 0;
-
-        // create output node:
-        var outNode = document.createElement('span');
-        outNode.className = 'sectionHours';
-        articles[i].children[0].appendChild(outNode);
+        const article = articles[i];
 
         // calculate hours per section:
-        var topicHoursNodes = articles[i].querySelectorAll(".hours");
+        let topicHoursNodes = article.querySelectorAll("[data-hours]");
 
         for (let i = 0, len = topicHoursNodes.length; i < len; i++) {
-            sectionHours += topicHoursNodes[i].innerHTML*1;
+            // sectionHours += topicHoursNodes[i].innerHTML*1;
+            sectionHours += topicHoursNodes[i].dataset.hours *1;
         }
 
         currentSectionHours += sectionHours;
 
-        // output
+
+        // create output node:
+        let outNode = document.createElement('span');
+
+        outNode.className = 'sectionHours';
         outNode.title = "hours:" + currentSectionHours;
         outNode.title += "\n"+"day:" + currentSectionHours/hours_per_day;
-
         outNode.innerHTML = "Total Section Hours: " + sectionHours;
+
+        article.appendChild(outNode);
     };
 }
 function calcTotalHours(){

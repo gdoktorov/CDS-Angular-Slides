@@ -95,7 +95,9 @@ body{
 	position: relative;
 	margin: 0 0 0 1em;
 }
-
+.themes>article>section[data-wip] h3 {
+    color: #999;
+}
 /*.themes>article>section:hover{
     width: 100%;
     margin: 0 auto;

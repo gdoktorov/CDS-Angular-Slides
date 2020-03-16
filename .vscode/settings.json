@@ -2,8 +2,8 @@
     // "workbench.colorTheme": "Solarized Light",
     "editor.minimap.enabled": false,
     "spellright.language": [
-        "English (American)",
-        "English (British)"
+        "Bulgarian",
+        "English (American)"
     ],
     "spellright.documentTypes": [
         "markdown",

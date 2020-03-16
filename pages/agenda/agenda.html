@@ -28,7 +28,7 @@
 			<span class="toggleSubThemes">Toggle sub-themes</span>
 		</div>
 		<div class="themes">
-			<article>
+			<article id="JS_Basics">
 				<section id="CourseIntro" data-hours="4">
 					<h3>Course Intro</h3>
 					<ol>
@@ -37,7 +37,7 @@
 						<li><span>Set up the environment</span>: node, Angular CLI, Code Editor/IDE</li>
 					</ol>
 				</section>
-				<section id="HTML_Overview" data-hours="1"><h3>HTML</h3>
+				<section id="HTML_Overview" data-hours="1"><h3>HTML Overview</h3>
 					<ol class="sub_themes">
 						<li>HTML syntax</li>
 						<li>Basic representational elements and structuring elements</li>
@@ -54,8 +54,7 @@
 						<li>The difference between JavaScript and other OOP languages</li>
 					</ol>
 				</section>
-
-				<section id="variablesAndDataTypes" data-hours="1"><h3>Variables and Data Types</h3>
+				<section id="JSvariablesAndDataTypes" data-hours="1" data-wip><h3>Variables and Data Types</h3>
 					<ol class="sub_themes">
 						<li>Variables declaration (var, let, const)</li>
 						<li>Dynamic typing</li>
@@ -63,7 +62,7 @@
 						<li>Reference types</li>
 					</ol>
 				</section>
-				<section id="Operators" data-hours="1"><h3>Operators</h3>
+				<section id="JSOperators" data-hours="1" data-wip><h3>Operators</h3>
 					<ol class="sub_themes">
 						<li>Assignment Operators</li>
 						<li>Arithmetic Operators</li>
@@ -75,7 +74,7 @@
 						<li>Notes on Types Coercion</li>
 					</ol>
 				</section>
-				<section id="Statements" data-hours="1"><h3>Statements</h3>
+				<section id="JSStatements" data-hours="2" data-wip><h3>Statements</h3>
 					<ol class="sub_themes">
 						<li><code>if, else-if</code> statements</li>
 						<li>for statement</li>
@@ -88,7 +87,13 @@
 						<li>Statement vs Expression</li>
 					</ol>
 				</section>
-				<section id="ReferenceTypesOverview" data-hours="1"><h3>Reference Types Overview</h3>
+				<section id="JSFunctions" data-hours="2" data-wip><h3>Functions</h3>
+					<ol class="sub_themes">
+						<li>Function definitions</li>
+						<li>Functions as first-class citizens</li>
+					</ol>
+				</section>
+				<section id="JSReferenceTypesOverview" data-hours="2" data-wip><h3>Reference Types Overview</h3>
 					<ol class="sub_themes">
 						<li>Arrays in JavaScript</li>
 						<li>Objects in JavaScript</li>
@@ -100,10 +105,23 @@
 						<li>Primitive boxing: the Number, String and Boolean Wrappers</li> -->
 					</ol>
 				</section>
-
-
-
-
+				<section id="CSS_Overview" data-hours="2" data-wip><h3>CSS Overview</h3>
+					<ol class="sub_themes">
+						<li>CSS syntax</li>
+						<li>Basic properties</li>
+						<li>Selectors</li>
+						<li>CSS layouts - overview</li>
+						<li>CSS animations - overview</li>
+					</ol>
+				</section>
+				<section id="DOM_basics" data-hours="2" data-wip><h3>DOM Overview</h3>
+					<ol class="sub_themes">
+						<li>What is DOM?</li>
+						<li>Basic properties and methods</li>
+						<li>Manipulating DOM elements with JS</li>
+						<li>Changing CSS with JS</li>
+					</ol>
+				</section>
 				<!-- <section id="JS_basics" data-hours="12" >
 					<h3>JavaScript (ES6 and beyond) Basics</h3>
 					<ol>
@@ -137,6 +155,8 @@
 						<li>live demo</li>
 					</ol>
 				</section>
+			</article>
+			<article id="Angular">
 				<section id="AngularOverview" data-hours="2" data-wip>
 					<h3>Angular Overview</h3>
 					<ol>
@@ -147,8 +167,6 @@
 						<li>Project Deployment</li>
 					</ol>
 				</section>
-			</article>
-			<article>
 				<section id="HowAnAngularAppWorks" data-hours="2" data-wip>
 				  <h3>How an Angular App Works</h3>
 				  <ol>
@@ -206,7 +224,7 @@
 						<li>Hands on the Demo Project</li>
 					</ol>
 				</section>
-				<section id="ComponentsInteraction" data-hours="6" data-wip>
+				<section id="ComponentsInteraction" data-hours="4" data-wip>
 				  <h3>Component Interaction</h3>
 				  <ol>
 				  	<li>Overview</li>
@@ -283,8 +301,6 @@
 				    <li>Hands on the Demo Project</li>
 				  </ol>
 				</section>
-			</article>
-			<article>
 				<section id="UI_Widgets" data-hours="2" data-wip>
 					<h3>Angular and UI Widgets</h3>
 					<ol>
@@ -322,16 +338,15 @@
 					</li>
 					</ol>
 				</section>
-			</article>
-			<article>
 				<section id="Appendix" data-hours="0" data-wip>
-				  <h3>Appendix</h3>
-				  <ol>
-				    <li><a href="/CDS-Angular-Slides/pages/readings/UsefulResources.html">Course resources</a></li>
-				    <li></li>
-				  </ol>
-				</section>
+					<h3>Appendix</h3>
+					<ol>
+					  <li><a href="/CDS-Angular-Slides/pages/readings/UsefulResources.html">Course resources</a></li>
+					  <li></li>
+					</ol>
+				  </section>
 			</article>
+
 
 			<!-- <article><h2><span>Appendix</span></h2>
 				<section id="onlineFreeResources">
