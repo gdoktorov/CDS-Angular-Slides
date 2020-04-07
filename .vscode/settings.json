@@ -1,6 +1,4 @@
 {
-    // "workbench.colorTheme": "Solarized Light",
-    "editor.minimap.enabled": false,
     "spellright.language": [
         "Bulgarian",
         "English (American)"
@@ -10,6 +8,15 @@
         "latex",
         "plaintext",
         "python",
+        "javascript",
         "html"
     ],
+    // "spellright.spellContext": "body comments strings",
+    "spellright.spellContextByClass": {
+        "latex": "body",
+        "cpp": "comments",
+        "python": "strings",
+        "javascript": "body comments strings"
+    },
+    "liveServer.settings.port": 5501
 }

@@ -3,9 +3,12 @@
 	    "emitDecoratorMetadata": true,
 	    "module": "commonjs",
 	    "target": "ES5",
-	    "experimentalDecorators": true
+		"experimentalDecorators": true
+		// "lib": [
+        //     "es2015"
+        // ]
 	},
-	"files":["your_script_0.ts", "your_script_1.ts"],
+	// "files":["your_script_0.ts", "your_script_1.ts"],
 	"exclude": [
 	    "node_modules"
 	]
