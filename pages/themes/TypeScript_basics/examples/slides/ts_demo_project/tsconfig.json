@@ -4,9 +4,7 @@
         "sourceMap": false,
 	    "module": "commonjs",
 		// "target": "ESNext",
-		"lib": [
-            "DOM", "ES2019"
-        ],
+		"lib": ["dom", "es6"],
 		"strict": true,
 		"noImplicitAny": true
 	},

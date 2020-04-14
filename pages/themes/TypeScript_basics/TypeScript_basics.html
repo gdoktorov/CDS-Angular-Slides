@@ -95,7 +95,7 @@
 			<dt>We can transpile TypeScript (or ES6) to ES5 using the TypeSctipt compiler</dt>
 			<dt>Let's have a valid ES6 file:</dt>
 		</dl>
-		<pre><code rel="ES6toES5.js" class="js" style="height: 30vh;">
+		<pre><code rel="ES6toES5.js" class="ts" style="height: 30vh;">
 			class Animal {
 				name:string
 
@@ -167,7 +167,7 @@
 		<dl class="fa">
 			<dt>TypeScript can help us to discover errors and bug-candidates while we write the program:</dt>
 		</dl>
-		<pre><code rel="JS" class="js">
+		<pre><code rel="TS" class="ts">
 			let add = function(x,y) {
 				console.log(x+y)
 			}
@@ -206,7 +206,7 @@
 		</dl>
 		<pre><code rel="Terminal" class="bash">
 			cd ts_demo_project
-			npm init -y
+			npm init
 		</code></pre>
 	</section>
 	<section><h3>Create <code>package.json</code> </h3>
@@ -234,7 +234,11 @@
 	</section> -->
 	<section><h3>the <code>tsconfig.json</code> file</h3>
 		<pre><code rel="Terminal" class="bash">
-			# will create the tsconfig.json with some default settings
+			# make sure you are in the root project folder:
+			pwd
+			# .../ts_demo_project
+
+			# create the tsconfig.json with some default settings
 			tsc --init
 		</code></pre>
 		<p>or manually create the <code>tsconfig.json</code> and paste into it</p>
@@ -254,9 +258,20 @@
 		</code></pre>
 		<p class="note">Just make sure, that you have <code>"outDir": "./dist/"</code></p>
 	</section>
+	<section><h3>Create a simple TS file</h3>
+		<dl class="fa">
+			<dt>Create the <code>helloUser.ts</code> in <code>src/</code> folder</dt>
+		</dl>
+		<pre><code rel="ts_demo_project/src/helloUser.ts" class="ts">
+			let userName:string='Ada';
+			let userAge:number=34;
+
+			console.log('Hello ${userName}, you are ${userAge} age old');
+
+		</code></pre>
+	</section>
 	<section><h3>start the project</h3>
 		<dl class="fa">
-			<dt>put some .ts files into the <code>src/</code> folder</dt>
 			<dt>write in your terminal:</dt>
 		</dl>
 		<pre><code rel="Terminal" class="bash">
@@ -266,7 +281,9 @@
 			# start the project
 			npm start
 		</code></pre>
-
+		<dl class="fa">
+			<dt>Now ts will compile each 'ts' file in <code>src/</code> folder into respective file in <code>dist/</code> folder. And that will happen on every change.</dt>
+		</dl>
 	</section>
 </section>
 
@@ -307,47 +324,28 @@
 			showMessage('Howdy!');
 		</code></pre>
 	</section>
-</section>
-
-<section data-min="5"><h2>Interfaces</h2>
-	<section><h3>Overview</h3>
+	<section><h3>Function Types</h3>
 		<dl class="fa">
-			<dt>An interface is an abstract type, i.e. it does not contain any executable code as a class does. It only defines the 'signature' or shape of the objects.</dt>
-			<dt>An interface is a way to define a contract on a function with respect to the arguments and their type.</dt>
-			<dt>Interface = Obligation</dt>
-			<dt>An interface can also be used with a Class to define custom types.</dt>
+			<dt>We can add types to <span class="note">each of the parameters</span> and to the function's <span class="note">return type</span>.</dt>
+			<dt>TypeScript can figure the return type out by looking at the return statements, so we can also optionally leave this off in many cases.</dt>
 		</dl>
-	</section>
-	<section><h3>Interfaces - example 1</h3>
-		<pre><code rel="TS" class="js">
-			&quot;use strict&quot;;
-			interface IDog{
-				name: string,
-				speak: ()=&gt;void
+		<pre><code rel="TS" class="ts">
+			function add(x: number, y: number): number {
+						return x + y;
 			}
 
-			var pluto: IDog = {
-				name:&quot;Pluto&quot;,
-				speak: ()=&gt;console.log(&quot;I&#39;m &quot;+pluto.name)
-			}
-
-			pluto.speak();
+			console.log( add(2,3) );
 		</code></pre>
 	</section>
-	<section><h3>Interfaces - example 2</h3>
+	<section><h3>Function Optional Parameters</h3>
 		<pre><code rel="TS" class="ts">
-			interface Callback {
-				(data: any): void;
+			// optional parameters:
+			function greet(firstName: string, lastName?: string) {
+				return lastName? `${firstName} ${lastName}`: firstName;
 			}
 
-			function getData(callback: Callback) {
-				callback('Do something with data');
-			}
-
-			getData( (data) =&gt; console.log(data) ); // OK
-
-			getData("Do something else with data")
-			// error TS2345: Argument of type '"Do something else with data"' is not assignable to parameter of type 'Callback'
+			console.log( greet('Ada', 'Byron') );
+			console.log( greet('Ada') );
 		</code></pre>
 	</section>
 </section>
@@ -371,11 +369,12 @@
 	</section>
 	<section><h3>Inheritance</h3>
 		<dl class="fa">
-			<dt>TypeScrip makes inheritance easy and looking like classical class-based inheritance</dt>
+			<dt>All properties and methods defined in parent class are inherited from the derived class.</dt>
+			<dt>Each derived class that contains a constructor function <span class="note">must call</span> the super() constructor</dt>
 		</dl>
 		<pre><code rel="TS" class="typescript" style="font-size: .8em">
 			class Person {
-				name: string;
+				name: string
 
 				constructor(public firstName: string, public surName: string) {
 					this.name = `${this.firstName} ${this.surName}`;
@@ -387,24 +386,198 @@
 			}
 
 			class Student extends Person{
-				constructor(firstName: string, surName: string){super(firstName, surName)}
+				college: string
+
+				constructor(firstName: string, surName: string, college:string){
+					super(firstName, surName);
+					this.college=college;
+				}
 
 				greet(){
-					// if we want we can reuse even the constructor's greet() method
-					// super.greet();
-					// or just to overwrite it:
-					console.log(`I'm late for school, so see you...`)
+					// if we want we can reuse the parent's greet() method (if we want to extend it)
+					super.greet();
+					console.log(`I study in ${this.college}`)
+
+					// or just to overwrite it
 				}
 			}
 
 			let maria = new Person("Maria", "Popova");
-			let ivan = new Student("Ivan", "Ivanov");
+			let ivan = new Student("Ivan", "Ivanov", 'TU-Sofia');
 
 			maria.greet();
 			ivan.greet();
 		</code></pre>
 	</section>
 	<section><h3>Reference: <a href="https://www.typescriptlang.org/docs/handbook/classes.html">Classes @typescriptlang.org</a></h3></section>
+</section>
+
+<section data-min="5"><h2>Interfaces</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>An interface is an abstract type, i.e. it does not contain any executable code as a class does.</dt>
+			<dt>An interface is a way to define a contract on a function with respect to the arguments and their type.</dt>
+			<dt>Interface = Obligation</dt>
+			<dt>An interface can also be used with a Class to define custom types.</dt>
+		</dl>
+	</section>
+	<section><h3>An Interface did not generate code</h3>
+		<dl class="fa">
+			<dt>Next TypeScript code will note generate any JS code</dt>
+		</dl>
+		<pre><code rel="TS" class="ts">
+			interface Point{
+				x:number,
+				y:number
+			}
+		</code></pre>
+	</section>
+	<section><h3>Interface to enforce a shape of an object</h3>
+		<dl class="fa">
+			<dt>Next code has a potential bug, as we did not enforce the shape of the object being passed</dt>
+		</dl>
+		<pre><code rel="TS" class="ts">
+			function drawPoint(obj:any) {
+				console.log(obj.x, obj.y);
+			}
+
+			drawPoint({
+				x:1,
+				y:2,
+				z:3
+			})
+			// 1 2
+			// no error is generated!
+		</code></pre>
+	</section>
+	<section><h3>Interface to enforce a shape of an object</h3>
+		<dl class="fa">
+			<dt>We need to enforce an object shape for the drawPoint() parameter. An Interface is useful for that.</dt>
+		</dl>
+		<pre><code rel="TS" class="ts">
+			interface Point{
+				x:number,
+				y:number
+			}
+
+			function drawPoint(point:Point) {
+				console.log(point.x, point.y);
+			}
+
+			drawPoint({
+				x:1,
+				y:2,
+				z:3
+				// Error: Argument of type '{ x: number; y: number; z: number; }' is not assignable to parameter of type 'Point'. Object literal may only specify known properties, and 'z' does not exist in type 'Point'.
+			})
+		</code></pre>
+	</section>
+	<section><h3>A class as an interface</h3>
+		<dl class="fa">
+			<dt>A class declaration in TypeScript creates two things: <span class="note">a type</span> representing instances of the class and <span class="note">a constructor function</span></dt>
+			<dt>Consider next example and the error that throws:</dt>
+		</dl>
+		<pre><code rel="TS" class="ts">
+			class Duck{
+				constructor(public name:string) {}
+				quacks(){}
+				swim(){}
+			}
+
+			class Cat {
+				constructor(public name:string) {}
+				quacks(){}
+			}
+
+
+			function isItDuck(obj:Duck) {
+				obj.quacks?
+					console.log(`${obj.name} is a Duck`):
+					console.log(`Not a Duck`);
+			}
+
+			let donald = new Duck('Donald');
+			let tom = new Cat('Tom');
+
+			isItDuck(donald);
+			isItDuck(tom);
+			//Argument of type 'Cat' is not assignable to parameter of type 'Duck'.
+			Property 'swim' is missing in type 'Cat' but required in type 'Duck'.
+		</code></pre>
+	</section>
+	<section><h3>Duck-typing</h3>
+		<dl class="fa">
+			<dt>In dynamic taping languages, the type of the object is determined by it's  <span class="note">shape</span> (set of properties and methods) and this is called "Duck-typing"</dt>
+			<dd>"If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck."</dd>
+			<dt>In TypeScript, interfaces can create duck-typing.</dt>
+		</dl>
+		<pre><code rel="TS" class="ts">
+			export {};
+
+			interface IDuck{
+				name: string
+				quacks():void
+			}
+
+			class Duck implements IDuck{
+				constructor(public name:string) {}
+
+				quacks(){}
+				swim(){}
+			}
+
+			class Cat {
+				constructor(public name:string) {}
+
+				quacks(){}
+			}
+
+
+			function isItDuck(obj:IDuck) {
+				obj.quacks?
+					console.log(`${obj.name} is a Duck`):
+					console.log(`Not a Duck`);
+			}
+
+			let donald = new Duck('Donald');
+			let tom = new Cat('Tom');
+
+			isItDuck(donald);
+			isItDuck(tom);
+		</code></pre>
+	</section>
+	<!-- <section><h3>Interfaces - example 1</h3>
+		<pre><code rel="TS" class="ts">
+			&quot;use strict&quot;;
+			interface IDog{
+				name: string,
+				speak: ()=&gt;void
+			}
+
+			var pluto: IDog = {
+				name:&quot;Pluto&quot;,
+				speak: ()=&gt;console.log(&quot;I&#39;m &quot;+pluto.name)
+			}
+
+			pluto.speak();
+		</code></pre>
+	</section> -->
+	<!-- <section><h3>Interfaces - example 2</h3>
+		<pre><code rel="TS" class="ts">
+			interface Callback {
+				(data: any): void;
+			}
+
+			function getData(callback: Callback) {
+				callback('Do something with data');
+			}
+
+			getData( (data) =&gt; console.log(data) ); // OK
+
+			getData("Do something else with data")
+			// error TS2345: Argument of type '"Do something else with data"' is not assignable to parameter of type 'Callback'
+		</code></pre>
+	</section> -->
 </section>
 
 <section data-min="10"><h1>Decorators</h1></section>
@@ -417,7 +590,7 @@
 		</dl>
 	</section>
 	<section><h3>How a decorator works?</h3>
-		<pre><code rel="JS" class="js">
+		<pre><code rel="TS" class="ts">
 			// create a decorator
 			function logDecor(f,name){
 				return function(){

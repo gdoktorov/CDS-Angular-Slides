@@ -1,13 +1,11 @@
 export {}
-
 interface Point{
 	x:number,
 	y:number
 }
 
-function drawPoint(point:Point) {
-	console.log(point.x, point.y);
-
+function drawPoint(obj:any) {
+	console.log(obj.x, obj.y);
 }
 
 drawPoint({

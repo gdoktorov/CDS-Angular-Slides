@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
-function drawPoint(point) {
-    console.log(point.x, point.y);
+function drawPoint(obj) {
+    console.log(obj.x, obj.y);
 }
 drawPoint({
     x: 1,
