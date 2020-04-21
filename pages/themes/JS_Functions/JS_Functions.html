@@ -649,6 +649,113 @@
 	</section>
 </section>
 
+<section data-min="10"><h1>Arrow Functin Syntax</h1></section>
+<section><h2>Arrow Functin Syntax</h2>
+	<section><h3>arrow functions???</h3>
+		<dl class="fa">
+			<dt>ES6 introduces a new function declaration syntax called <span class="note">arrow notation</span></dt>
+			<dt>Synonyms:</dt>
+			<dd>Arrow functions</dd>
+			<dd>Fat arrow functions</dd>
+			<dt>It is essentially syntactic sugar that reduces the number of times you have to type the word function , as well as the number of curly braces you have to type</dt>
+		</dl>
+	</section>
+	<section><h3>Function expression vs arrow syntax:</h3>
+		<pre><code rel="JS">
+			const pi = 3.14;
+
+			// function expression:
+			let circleAreaExp = function(r){
+				return r*r*pi;
+			}
+
+			// arrow function:
+			let circleAreaArr = r=>r*r*pi;
+		</code></pre>
+	</section>
+	<section><h3>basic syntax</h3>
+		<pre><code rel="Basic Syntax">
+			(param1, param2, …, paramN) => { statements }
+		</code></pre>
+		<pre><code rel="JS">
+			let circleArea = (r)=>{return r*r*pi};
+
+			console.log(`circleArea(2) = ${circleArea(2)}`);
+		</code></pre>
+	</section>
+	<section><h3>single argument syntax</h3>
+		<dl class="fa">
+			<dt>If the function takes a single argument, you can omit the parentheses</dt>
+		</dl>
+		<pre><code rel="Basic Syntax">
+			singleParam => { statements }
+		</code></pre>
+		<pre><code rel="JS">
+			let circleArea = r=>{return r*r*pi};
+
+			console.log(`circleArea(2) = ${circleArea(2)}`);
+		</code></pre>
+	</section>
+	<section><h3>single expression syntax</h3>
+		<dl class="fa">
+			<dt>If the function body is a single expression, you can omit curly braces and the return statement</dt>
+		</dl>
+		<pre><code rel="Basic Syntax">
+			(param1, param2, …, paramN) => expression
+		</code></pre>
+		<pre><code rel="JS">
+			let circleArea = r=>r*r*pi;
+
+			console.log(`circleArea(2) = ${circleArea(2)}`);
+		</code></pre>
+	</section>
+	<section><h3>lexical "this"</h3>
+		<dl class="fa">
+			<dt>"this" value in arrow functions is <span class="note">lexically scoped</span> in contrast to standard functions, whose "this" value is dynamically scoped.<br>I.e the value of "this" in arrow functions is this same as the value of "this" in the enclosing scope.</dt>
+			<dt>"this" in arrow functions can not be changed with <code>call/apply or bind</code> methods!</dt>
+		</dl>
+	</section>
+	<section><h3>lexical "this" - example</h3>
+		<pre><code rel="JS">
+			lexicalThis = this;
+
+			var obj = {
+				'exp': function(){
+					console.log(this === lexicalThis);
+				},
+				'arr': ()=>{console.log(this === lexicalThis)}
+			}
+
+
+			obj.exp(); // false
+			obj.arr(); // true
+		</code></pre>
+	</section>
+	<section><h3 class="advanced">lexical arguments</h3>
+		<dl class="fa">
+			<dt>the <code>arguments</code> object in arrow function is reference to the arguments object in the enclosing scope</dt>
+		</dl>
+		<pre><code rel="JS">
+			let logArgs = ()=>{
+				for (var i = 0; i < arguments.length; i++) {
+					console.log(arguments[i]);
+				}
+				console.dir(arguments);
+			}
+
+			logArgs(1,2,3);
+		</code></pre>
+	</section>
+	<section><h3>Notes</h3>
+		<dl class="fa">
+			<dt class="note">Arrow functions are always anonymous!</dt>
+			<dt>Arrow function syntax is best suited for non-method functions</dt>
+			<dt>Perfect for callbacks</dt>
+			<dt>Arrow functions cannot be used as constructors and will throw an error when used with new</dt>
+		</dl>
+	</section>
+</section>
+
 <section data-min="5"><h1>Примери и Задачи</h1></section>
 <section><h2>Примери и Задачи</h2>
 	<section><h3>Function Definitions Examples</h3>
