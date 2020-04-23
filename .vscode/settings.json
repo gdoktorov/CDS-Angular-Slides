@@ -1,6 +1,5 @@
 {
     "spellright.language": [
-        "Bulgarian",
         "English (American)"
     ],
     "spellright.documentTypes": [
@@ -8,7 +7,8 @@
         "latex",
         "plaintext",
         "python",
-        "javascript"
+        "javascript",
+        "html"
     ],
     // "spellright.spellContext": "body comments strings",
     "spellright.spellContextByClass": {
