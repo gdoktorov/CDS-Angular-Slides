@@ -101,7 +101,7 @@
 <section><h2>Component Declaration</h2>
   <dl class="fa">
     <dt>When a component A has to use component B in its template, then component B must be made available to the component A. </dt>
-    <dt>Component B has to be declared in the module of the component A.</dt>
+    <dt class="note">Component B has to be declared in the module of the component A.</dt>
     <dt>If the component B is declared in another module, the module must be imported into the module of the first component. Otherwise, the component won’t be compiled with the template.</dt>
   </dl>
 </section>
@@ -159,6 +159,30 @@
       <dt><span class="note">selector1, selector2</span> - select if either selector1 or selector2 matches.</dt>
     </dl>
   </section>
+  <section><h3>Example</h3>
+    <pre><code rel="app.component.html" class="js">
+      <h1>Welcome to {{title}}</h1>
+      <div class='test'></div>
+    </code></pre>
+    <pre><code rel="test.component.ts" class="js">
+      import { Component, OnInit } from '@angular/core';
+
+      @Component({
+        selector: '.test',
+        templateUrl: './test.component.html',
+        styleUrls: ['./test.component.css']
+      })
+      export class TestComponent implements OnInit {
+
+        constructor() { }
+
+        ngOnInit(): void {
+        }
+
+      }
+
+    </code></pre>
+  </section>
 </section>
 
 
@@ -170,8 +194,30 @@
       <dt>It can contain an HTML code (no scripts elements, though) augmented with Angular's entities.</dt>
     </dl>
   </section>
-  <section><h3>Interpolation <code>{﻿{...}}</code></h3>
+  <section><h3>Interpolation <code>{{...}}</code></h3>
+    <dl class="fa">
+      <dt>Interpolation refers to embedding expressions into marked up text.</dt>
+      <dt>In Angular we can interpolates variables and expressions into HTML templatplate using the double curly braces as delimiter</dt>
+      <dt>Reference: <a href="https://angular.io/guide/template-syntax#interpolation-and-template-expressions">Interpolation and Template Expressions</a></dt>
+    </dl>
+  </section>
+  <section><h3>Examples</h3>
+    <pre><code rel="app.component.ts" class="js">
+      import { Component } from '@angular/core';
 
+      @Component({
+        selector: 'app-root',
+        template: `
+          Hello, {{userName}}. You are {{currentYear - userBirthYear}} years old!`
+
+      })
+      export class AppComponent {
+        userName='Maria';
+        userBirthYear = 1990;
+        currentYear = 2020;
+      }
+
+    </code></pre>
   </section>
   <section><h3>Template Reference Variables</h3>
     <dl class="fa">
@@ -216,16 +262,49 @@
 <section data-min="15"><h1>Create the Components of BookStore</h1></section>
 <section><h2>Create the Components of BookStore</h2>
   <section><h3>create main components files</h3>
-    <p>For now, we do not need the *.component.spec.ts file, which is used to for test cases. That's wh, we'll instruct Angular CLI to not create the spec file per component:</p>
+    <p>For now, we do not need the *.component.spec.ts file, which is used to for test cases. That's why, we'll instruct Angular CLI to not create the spec file per component:</p>
     <pre><code rel="Terminal" class="bash" data-noescape>
       # the header:
-      ng g c header --spec==false
+      ng g c header  --skip-tests
 
       # the footer:
-      ng g c footer --spec==false
+      ng g c footer  --skip-tests
 
       # the main:
-      ng g c main --spec==false
+      ng g c main  --skip-tests
+    </code></pre>
+  </section>
+  <section><h3>Skipping test by default with Angular Schematics</h3>
+    <dl class="fa">
+      <dt>We can set in <code>angular.json</code> file,the Schematics settings to skip tests generation</dt>
+    </dl>
+    <pre><code rel="angular.json" class="js">
+      "schematics": {
+        "@schematics/angular:component": {
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
     </code></pre>
   </section>
   <section>
@@ -250,6 +329,11 @@
           ├── main.component.html
           └── main.component.ts
     </code></pre>
+  </section>
+  <section><h3>Insert Components in AppComponent</h3>
+    <dl class="fa">
+      <dt>Live demo</dt>
+    </dl>
   </section>
 </section>
 
