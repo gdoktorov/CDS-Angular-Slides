@@ -163,7 +163,31 @@
       <p>Date: {{ '2018-01-15T09:03:01+0900' | date:'y MMMM - EEEE d' }}</p>
     </code></pre>
     <pre><code rel="Output" class="text">
+      Date: Jan 15, 2018
 
+      Date: 2018 January - Monday 15
+    </code></pre>
+  </section>
+  <section><h3>more built-in pipes demos</h3>
+    <pre><code rel="built-in-pipes.component.ts" class="ts">
+      import { Component, OnInit } from '@angular/core';
+
+      @Component({
+        selector: 'app-built-in-pipes',
+        template: `
+          <div>{{userName}} piped into 'uppercase' is: {{userName | uppercase}}</div>
+          <div>Number {{number}} piped into 'percent' is: {{number | percent}}</div>
+          <div>Current date piped into 'date:'dd.MM.y' is: {{ now | date:'dd.MM.y' }}</div>
+          <div>Current time piped into date:'HH:mm:ss' is: {{ now | date:'HH:mm:ss' }}</div>
+        `,
+        styles: [
+        ]
+      })
+      export class BuiltInPipesComponent {
+        userName = 'ada';
+        number = 0.2;
+        now = new Date();
+      }
     </code></pre>
   </section>
 </section>
@@ -182,19 +206,24 @@
     </dl>
   </section>
   <section><h3>example</h3>
-    <pre><code rel="TS" class="typescript">
+    <pre><code rel="fancy-quotes.pipe.ts" class="typescript">
       import { Pipe, PipeTransform } from '@angular/core';
 
       @Pipe({
-        name: 'testPipe'
+        name: 'fancyQuotes', pure:false
       })
-      export class TestPipePipe implements PipeTransform {
-
-        transform(value: any, args?: any): any {
-          return null;
+      export class FancyQuotesPipe implements PipeTransform {
+        transform(value: any): string {
+          return `«${value}»`;
         }
-
       }
+    </code></pre>
+    <pre><code rel="Usage" class="ts">
+      template: `
+        <p>
+          {{'ada'|fancyQuotes}}
+        </p>
+      `,
     </code></pre>
   </section>
 </section>
@@ -270,15 +299,15 @@
       // The "normal" size of the presentation, aspect ratio will be preserved
       // when the presentation is scaled to fit different resolutions. Can be
       // specified using percentage units.
-      width: 960,
-      height: 700,
+      width: 1280,
+      height: 1024,
 
       // Factor of the display size that should remain empty around the content
-      margin: 0.1,
+      // margin: 0.1,
 
       // Bounds for smallest/largest possible scale to apply to content
-      minScale: 0.2,
-      maxScale: 1.5,
+      // minScale: 0.2,
+      // maxScale: 1.5,
 
       // slide transition
       transition: 'concave', // none/fade/slide/convex/concave/zoom

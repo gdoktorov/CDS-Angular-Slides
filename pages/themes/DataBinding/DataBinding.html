@@ -82,6 +82,9 @@
       <dt>Data bindings contain simple JavaScript expressions.</dt>
     </dl>
   </section>
+  <section><h3>binding flows - diagram</h3>
+    <a href=""><img src="images/angular-data-binding-types.png" alt=""></a>
+  </section>
   <section><h3>binding flows</h3>
     <dl class="fa">
       <dt class="note">One-way <b>data binding</b>:</dt>
@@ -105,8 +108,8 @@
   </section>
 </section>
 
-<section data-min="10"><h1>Angular Template Syntax</h1></section>
-<section><h2>Angular Template Syntax</h2>
+<section data-min="10"><h1>Angular Template Syntax - review (and going deep)</h1></section>
+<section><h2>Angular Template Syntax - review</h2>
   <section>
     <dl class="fa">
       <dt>Almost all valid HTML markup is available in the Template.</dt>
@@ -145,6 +148,10 @@
   </section>
   <section><h3>Different kind of Brackets</h3>
     <table>
+      <colgroup>
+        <col style="width: 30%">
+        <col>
+      </colgroup>
       <tr><th>Name</th><th>Description</th></tr>
       <tr><td class="note">{{expression}}</td><td>string interpolation binding</td></tr>
       <tr><td class="note">[target]="expr"</td><td>a one-way <span class="note">data</span> binding</td></tr>
@@ -196,6 +203,22 @@
       <dt>More on <a href="https://angular.io/guide/template-syntax#html-attribute-vs-dom-property">HTML attribute vs. DOM property</a>@angular docs.</dt>
     </dl>
   </section>
+  <section><h3>HTML Attributes vs DOM Properties - example</h3>
+    <pre><code rel="JS" class="js">
+      import { Component } from '@angular/core';
+
+      @Component({
+        selector: 'app-test-comp',
+        styles: [``],
+        template: `
+          user name: <input type="text" id="i1" value="ada">
+        `
+      })
+      export class TestCompComponent { }
+
+    </code></pre>
+    <p>Open DevTools Console and try to change the <span class="note">value propert</span> by typing <code>i1.value = "maria"</code> and see the <span class="note">value attribute</span> will not change.</p>
+  </section>
   <section><h3>Attribute binding</h3>
     <pre><code rel="Syntax" class="typescript" data-noescape>
       [attr.html_attribute] = "expression"
@@ -243,7 +266,7 @@
   </section>
   <section><h3>Apply class conditionally</h3>
     <pre><code rel="Syntax" class="typescript" data-noescape>
-      [class.class_name] = "expression (boolean value)"
+      [class.class_name] = "expression"
     </code></pre>
     <dl class="fa">
       <dt>If expression is evaluated to True, the class_name will be added as value to the element's class property. If it is False - the class_name will be removed.</dt>
@@ -251,14 +274,14 @@
   </section>
   <section><h3>Apply class conditionally - example</h3>
     <pre><code rel="Example" class="html">
+      styles: [`
+        .error{
+          background-color: red;
+        }
+      `],
       template: `
-          <p [class.italic]="true">Paragraph</p>
-        `,
-        styles: [`
-          .italic{
-            font-style: italic;
-          }
-        `]
+        user name: <input type="text" [class.error]="true">
+      `
     </code></pre>
   </section>
   <section><h3>ngClass Directive</h3>
@@ -290,7 +313,7 @@
           }
         `]
       })
-      export class DataBindingTestComponent implements OnInit {
+      export class DataBindingTestComponent {
         multiClass = {
           'notaBene': true,
           'italic': true
@@ -324,6 +347,12 @@
     </code></pre>
     <pre><code rel="example" class="html">
       <p [style.font-size.em]="vip?3:1">A VIP paragraph</p>
+    </code></pre>
+    <dl class="fa">
+      <dt>Instead of using string value:</dt>
+    </dl>
+    <pre><code rel="example" class="html">
+      <p [style.font-size]="'50px'">A VIP paragraph</p>
     </code></pre>
   </section>
   <section><h3>NgStyle</h3>
@@ -605,15 +634,15 @@
       // The "normal" size of the presentation, aspect ratio will be preserved
       // when the presentation is scaled to fit different resolutions. Can be
       // specified using percentage units.
-      width: 960,
-      height: 700,
+      width: 1280,
+      height: 1024,
 
       // Factor of the display size that should remain empty around the content
-      margin: 0.1,
+      // margin: 0.1,
 
       // Bounds for smallest/largest possible scale to apply to content
-      minScale: 0.2,
-      maxScale: 1.5,
+      // minScale: 0.2,
+      // maxScale: 1.5,
 
       // slide transition
       transition: 'concave', // none/fade/slide/convex/concave/zoom
