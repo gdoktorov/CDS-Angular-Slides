@@ -263,6 +263,22 @@
 			. item 3
 		</code></pre>
 	</section>
+	<section><h3>ngFor - local variables</h3>
+		<dl class="fa">
+			<dt>Inside *ngFor microsyntas, angular provides some local variables useful in our loops, like <code>index</code>, <code>count</code> and etc.</dt>
+			<dt>Reference: <a href="https://angular.io/api/common/NgForOf#local-variables">*ngFor - Local Variables</a></dt>
+		</dl>
+		<pre><code rel="HTML" class="html5">
+			&lt;li *ngFor=&#39;let item of [1,2,3]; index as i; odd as isOdd&#39;&gt;
+				&lt;span&gt;item: {{item}}, index: {{i}}, odd: {{isOdd}}&lt;/span&gt;
+			&lt;/li&gt;
+		</code></pre>
+		<pre><code rel="Output" class="bash">
+			item: 1, index: 0, odd: false
+			item: 2, index: 1, odd: true
+			item: 3, index: 2, odd: false
+		</code></pre>
+	</section>
 	<section><h3><code>ngFor - example</code></h3>
 		<pre><code rel="directives.component.html" class="html">
 			import { Component } from &#39;@angular/core&#39;;
