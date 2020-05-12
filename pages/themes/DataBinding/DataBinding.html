@@ -299,9 +299,9 @@
 	<section><h3>ngClass Directive - example</h3>
 		<pre><code rel="HTML" class="html">
 			@Component({
-				selector: 'app-data-binding-test',
+				selector: &#39;app-data-binding-test&#39;,
 				template: `
-					&lt;p [ngClass]=&quot;multiClass&quot;&gt;Paragraph multiClass&lt;/p&gt;
+					&amp;lt;p [ngClass]=&amp;quot;multiClass&amp;quot;&amp;gt;Paragraph multiClass&amp;lt;/p&amp;gt;
 				`,
 				styles: [`
 					.notaBene{
@@ -315,8 +315,8 @@
 			})
 			export class DataBindingTestComponent {
 				multiClass = {
-					'notaBene': true,
-					'italic': true
+					&#39;notaBene&#39;: true,
+					&#39;italic&#39;: true
 				}
 			}
 		</code></pre>
@@ -335,7 +335,7 @@
 			<dt>expression should return a valid CSS value for that property</dt>
 		</dl>
 		<pre><code rel="example" class="html">
-			<p [style.background]="'#00E2FF'">A paragraph with light blue background </p>
+			&lt;p [style.background]=&quot;&#39;#00E2FF&#39;&quot;&gt;A paragraph with light blue background &lt;/p&gt;
 		</code></pre>
 	</section>
 	<section><h3>unit extension</h3>
@@ -346,7 +346,7 @@
 			[style.property.unit]="expression"
 		</code></pre>
 		<pre><code rel="example" class="html">
-			<p [style.font-size.em]="vip?3:1">A VIP paragraph</p>
+			&lt;p [style.font-size.em]=&quot;vip?3:1&quot;&gt;A VIP paragraph&lt;/p&gt;
 		</code></pre>
 		<dl class="fa">
 			<dt>Instead of using string value:</dt>
@@ -373,7 +373,7 @@
 			@Component({
 				selector: 'app-data-binding-test',
 				template: `
-					<p [ngStyle]="vipStyle">Style binding with vipStyle</p>
+					&lt;p [ngStyle]=&quot;vipStyle&quot;&gt;Style binding with vipStyle&lt;/p&gt;
 				`,
 				styles: [``]
 			})
@@ -433,8 +433,8 @@
 			@Component({
 				selector: 'app-event-binding',
 				template: `
-					<button (click)="clickHandler($event)">Button 1</button>
-					<button (click)="clickHandler($event)">Button 2</button>
+					&lt;button (click)=&quot;clickHandler($event)&quot;&gt;Button 1&lt;/button&gt;
+					&lt;button (click)=&quot;clickHandler($event)&quot;&gt;Button 2&lt;/button&gt;
 				`,
 				styleUrls: ['./event-binding.component.css']
 			})
@@ -462,8 +462,8 @@
 			@Component({
 				selector: 'app-event-binding',
 				template: `
-					<input type="text" (keyup)="onKeyUp(userInput.value)" #userInput><hr>
-					<div class="output">{{content}}</div>
+					&lt;input type=&quot;text&quot; (keyup)=&quot;onKeyUp(userInput.value)&quot; #userInput&gt;&lt;hr&gt;
+					&lt;div class=&quot;output&quot;&gt;{{content}}&lt;/div&gt;
 				`,
 				styles: [``]
 			})
@@ -534,8 +534,8 @@
 			@Component({
 				selector: 'app-event-binding',
 				template: `
-					<label>userName: <input [(ngModel)]="userName"></label>
-					<div class="output">You've entered: {{userName}}</div>
+					&lt;label&gt;userName: &lt;input [(ngModel)]=&quot;userName&quot;&gt;&lt;/label&gt;
+					&lt;div class=&quot;output&quot;&gt;You&#39;ve entered: {{userName}}&lt;/div&gt;
 				`,
 				styles: [``]
 			})
