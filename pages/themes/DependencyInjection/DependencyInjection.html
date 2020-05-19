@@ -65,17 +65,103 @@
   </div>
 </section>
 
-<section data-min="10"><h1>Providers and Services</h1></section>
-<section><h2>Providers and Services</h2>
-  <section><h3>___SubSectionTitle___</h3>
+<section data-min="50"><h1>What and Why?</h1></section>
+<section><h2>What and Why?</h2>
+  <section><h3>The problem</h3>
+    <pre><code rel="JS" class="js">
+      class Engine{
+        constructor(fuel){}
+      }
 
+      class Tires{
+        constructor(size){}
+      }
+
+      class Car{
+        engine;
+        tires;
+
+        constructor(){
+          // error, unless we change the code here
+          this.engine = new Engine();
+          this.tires = new Tires(36);
+        }
+      }
+
+      let ford = new Car();
+    </code></pre>
+    <dl class="fa">
+      <dt>If we change the dependency we MUST change the dependent class.</dt>
+      <dt>I.e. the dependency and the dependent are coupled!</dt>
+      <dt>This leads to code that is hard to maintain and even harder to test.</dt>
+    </dl>
+  </section>
+  <section><h3>Possible Solution?</h3>
+    <pre><code rel="JS" class="js">
+      class Engine{
+        constructor(fuel)
+      }
+
+      class Tires{
+        constructor(size)
+      }
+
+      class Car{
+        engine;
+        tires;
+
+        constructor(engine, tires){
+          this.engine = engine;
+          this.tires = tires;
+        }
+      }
+
+      let engine = new Engine('fule1');
+      let tires = new Tires(36);
+
+      let ford = new Car(engine, tires);
+    </code></pre>
+    <dl class="fa">
+      <dt>The dependency are decoupled, now but what if we have many dependencies, or a dependency itself is dependent of other class?</dt>
+      <dt>We need a mechanism to deal with dependencies.</dt>
+      <dt>And Angular provides a framework </dt>
+    </dl>
+  </section>
+  <section><h3>DI - the design pattern</h3>
+    <dl class="fa">
+      <dt>Dependency injection is a design pattern that makes a class independent of its dependencies</dt>
+      <dt>It allows the creation of dependent objects outside of a class and provides those objects to a class.</dt>
+      <dt>DI allows us to move the creation and binding of the dependent objects outside of the class that depends on them.</dt>
+    </dl>
+  </section>
+  <section><h3>DI - the design pattern</h3>
+    <dl class="fa">
+      <dt>The Dependency Injection pattern involves 3 types of classes.</dt>
+    </dl>
+    <a href="images/DI_Pattern.png"><img src="images/DI_Pattern.png" alt="DI_Pattern" style="margin-top: 1em;"></a>
+  </section>
+  <section><h3>DI - the design pattern</h3>
+    <dl class="fa">
+      <dt><span class="note">Client Class</span></dt>
+      <dd>The client class (dependent class) is a class which depends on the service class</dd>
+      <dt><span class="note">Service Class</span></dt>
+      <dd>The service class (dependency) is a class that provides service to the client class.</dd>
+      <dt><span class="note">Injector Class</span></dt>
+      <dd>The injector class injects the service class object into the client class.</dd>
+    </dl>
   </section>
 </section>
 
-<section data-min="20"><h1>How dependency injection works in Angular</h1></section>
-<section><h2>How dependency injection works in Angular</h2>
-  <section><h3>___SubSectionTitle___</h3>
 
+<section data-min="20"><h1>DI in Angular</h1></section>
+<section><h2>DI in Angular</h2>
+  <section><h3>Overview</h3>
+    <dl class="fa">
+      <dt>Angular has its own DI framework, which basically consists of:</dt>
+      <dd><span class="note">Injector</span> - The injector object that exposes APIs to us to create instances of dependencies.</dd>
+      <dd><span class="note">Provider</span> - A provider is like a recipe that tells the injector how to create an instance of a dependency. A provider takes a token and maps that to a factory function that creates an object.</dd>
+      <dd><span class="note">Dependency</span> - A dependency is the type of which an object should be created.</dd>
+    </dl>
   </section>
 </section>
 
@@ -83,26 +169,11 @@
 <section><h2>Injecting dependencies across the component tree</h2>
   <section>
     <dl class="fa">
-      <dt>Services declared inside the providers array of a parent component are available to child components out of the box</dt>
-      <dt>Child components do not need to declare the services again in their providers array</dt>
-      <dt>If a child component declares a service again in its providers array, which is already declared in its parent component providers array, Angular will create a new instance of service for the child component, and it will not use the parent component's service</dt>
-      <dt>A service instance created at a child component is accessible only to itself and its child components</dt>
+      <dt>Dependencies declared inside the providers array of a parent component are available to child components out of the box</dt>
+      <dt>Child components do not need to declare the dependencies again in their providers array</dt>
+      <dt>If a child component declares a dependency again in its providers array, which is already declared in its parent component providers array, Angular will create a new instance of dependency for the child component, and it will not use the parent component's dependency</dt>
+      <dt>A dependency instance created at a child component is accessible only to itself and its child components</dt>
     </dl>
-
-  </section>
-</section>
-
-<section data-min="10"><h1>Overriding providers</h1></section>
-<section><h2>Overriding providers</h2>
-  <section><h3>___SubSectionTitle___</h3>
-
-  </section>
-</section>
-
-<section data-min="10"><h1>Hands on the Demo Project</h1></section>
-<section><h2>Hands on the Demo Project</h2>
-  <section><h3>___SubSectionTitle___</h3>
-
   </section>
 </section>
 
@@ -175,8 +246,8 @@
       // The "normal" size of the presentation, aspect ratio will be preserved
       // when the presentation is scaled to fit different resolutions. Can be
       // specified using percentage units.
-      width: 960,
-      height: 700,
+      width: 1280,
+      height: 1024,
 
       // Factor of the display size that should remain empty around the content
       margin: 0.1,
