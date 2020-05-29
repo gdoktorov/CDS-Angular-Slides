@@ -70,7 +70,7 @@
 <section><h2>Asynchronous data streams and Reactive Programming</h2>
   <section><h3>Overview</h3>
     <blockquote cite="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">
-        <p>Reactive programming is programming with asynchronous data streams.</p>
+        <p>Reactive programming is programming with asynchronous <span class="note">data streams</span>.</p>
     </blockquote>
     <div>From <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you've been missing</a> by <a href="https://twitter.com/andrestaltz">@andrestaltz</a></div>
   </section>
@@ -107,9 +107,16 @@
 
 <section data-min="20"><h1>Observables</h1></section>
 <section><h2>Observables</h2>
+  <section><h3>Overview - Diagram</h3>
+    <a href="images/Observable_Observer.png"><img src="images/Observable_Observer.png" alt="" style="height: 60vh;"></a>
+    <dl class="fa">
+      <dt>Observer subscribes for Observable</dt>
+      <dt>Observable notifies(on next/error/complete) the Observer</dt>
+    </dl>
+  </section>
   <section><h3>Overview</h3>
     <dl class="fa">
-      <dt><span class="note">Observable</span> represent (wraps) a stream of data (can be synchronous, but most often - asynchronous)</dt>
+      <dt><span class="note">Observable</span> represent (wraps) <span class="note">a stream of data</span> (can be synchronous, but most often - asynchronous)</dt>
       <dt>The <span class="note">Observer</span> <b>subscribes</b> for the Observable, implementing these methods:</dt>
       <dd><code>next()</code></dd>
       <dd><code>error()</code></dd>
@@ -117,11 +124,54 @@
       <dt>The <span class="note">Observable</span> is responsive to <b>invoke</b> the next()/complete()/error() methods of the Observer.</dt>
     </dl>
   </section>
+
   <section><h3>Overview</h3>
     <dl class="fa">
-      <dt>Observer subscribes for Observable</dt>
-      <dt>Observable notifies(on next/error/complete) the Observer</dt>
+      <dt>In its simplest form <span class="note">Observable is just a function that takes an observer object and returns a cancellation function.
+      </span></dt>
+      <dt>The Observer object can define one of the three methods: <code>next()</code>, <code>complete()</code> and <code>error()</code> </dt>
+      <dt>Usually, the Observable is an object with <code>subscribe()</code> and <code>unsubscribe()</code> methods.</dt>
+      <dd> The <code>subscribe()</code> method takes the observable object and invokes its <code>next()</code>, <code>complete()</code> or <code>error()</code> methods.</dd>
+      <dd>The <code>unsubscribe()</code> method just cancels the </dd>
     </dl>
+  </section>
+  <section><h3>Create Simple Observable Pattern from scratch - demo</h3>
+    <pre><code rel="JS" class="js">
+      let observable = {
+        timerID:undefined,
+
+        subscribe(observer) {
+          let count = 1;
+
+          this.timerID = setInterval(() => {
+            if (count < 10) {
+              observer.next(count++);
+            }else {
+              observer.complete(count);
+              clearInterval(this.timerID);
+            }
+          }, 500);
+
+
+        },
+        unsubscribe () {
+          clearInterval(this.timerID);
+        }
+
+      }
+      let observer = {
+        next:(x)=>console.log(`x = ${x}`),
+        complete: (x)=> console.log(`Completed at x = ${x}`)
+      }
+
+
+      observable.subscribe(observer);
+      setTimeout(() => {
+        observable.unsubscribe();
+      }, 10000);
+
+      // let unsub = observable(observer);
+    </code></pre>
   </section>
 </section>
 <section data-min="20"><h1>Reactive Programming and RxJS</h1></section>
@@ -136,29 +186,58 @@
   </section>
   <section><h3>Observable, Observer, Subscribe - example</h3>
     <p>In next examples more temporary variables are used than needed, just to depict how things works</p>
-    <pre style="width: 110%;"><code rel="JS" class="js">
-      &lt;script type=&quot;text/javascript&quot; src=&quot;https://unpkg.com/rxjs@6.2.1/bundles/rxjs.umd.min.js&quot;&gt;&lt;/script&gt;
-      &lt;script type=&quot;text/javascript&quot;&gt;
-        const { Observable, Subject, ReplaySubject, from, of, range,pipe } = rxjs;
-        const { map, filter, switchMap } = rxjs.operators;
+    <pre><code rel="HTML" class="html5">
+      <!-- include RxJS library -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.5.5/rxjs.umd.min.js"></script>
+    </code></pre>
+    <pre><code rel="JS" class="js">
+      const { from, pipe } = rxjs;
+      const { map, filter } = rxjs.operators;
 
-        // create an observer object:
-        let rangeObserver = {
-          next: value=&gt;console.log(`Next ${value}`),
-          error: error=&gt;console.log(`An error: ${error} occured`),
-          complete: ()=&gt;console.log(`Complete`),
-        }
+      // create an Observer object:
+      let rangeObserver = {
+        next: value=>console.log(`Next ${value}`),
+        error: error=>console.log(`An error: ${error} occured`),
+        complete: ()=>console.log(`Complete`),
+      }
 
-        // create the observable and make some transformation on data:
-        let rangeObservable$ = from([1,2,3,4,5])
-        .pipe(
-            filter(x =&gt; x % 2 === 0),
-            map(x =&gt; x * x)
+      // create the Observable and make some transformation on data:
+      let rangeObservable = from([1,2,3,4,5])
+      .pipe(
+          filter(x => x % 2 === 0),
+          map(x => x ** 2)
         )
 
-        // subscribe Observer to Observable:
-        rangeObservable$.subscribe(rangeObserver);
-      &lt;/script&gt;
+      // subscribe Observer to Observable:
+      rangeObservable.subscribe(rangeObserver);
+    </code></pre>
+  </section>
+  <section><h3>ES2015 - Method Shorthand Syntax</h3>
+    <dl class="fa">
+      <dt>Often, when initializing the Observer object, the methods are defined using the ES2015 Method Shorthand Syntax</dt>
+      <dt>Reference: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#Method_definitions">Method_definitions @MDN</a></dt>
+    </dl>
+    <pre><code rel="JS" class="js">
+      // three ways to define method in object literal:
+      let obj = {
+        // method definition with function expression:
+        foo: function (x) {
+          console.log(`x = ${x}`);
+        },
+        // method definition with arrow function:
+        bar: x=>{
+          console.log(`x = ${x}`);
+        },
+        // shorthand method definition:
+        baz(x){
+          console.log(`x = ${x}`);
+        }
+      }
+
+
+      obj.foo(1);
+      obj.bar(2);
+      obj.baz(3);
     </code></pre>
   </section>
   <section><h3>Create Observable fromEvent - example</h3>
@@ -174,12 +253,12 @@
         const button = document.querySelector('button');
 
         // create the observable:
-        let clickObservable$ = fromEvent(button, 'click').pipe(
+        let clickObservable = fromEvent(button, 'click').pipe(
           scan(count =&gt; count + 1, 0)
         )
 
-        // subscribe to the accumulated data
-        clickObservable$.subscribe(count =&gt; console.log(`Clicked ${count} times`));
+        // subscribe to the accumulated data - the Observer here is just an anonymous function:
+        clickObservable.subscribe(count =&gt; console.log(`Clicked ${count} times`));
 
       &lt;/script&gt;
     </code></pre>
@@ -195,13 +274,13 @@
         let source$ = range(1, 10);
 
         // transform data using RxJS operators
-        let transformedSource$ = source$.pipe(
+        let transformedSource = source$.pipe(
             filter(x =&gt; x % 2 === 0),
             map(x =&gt; x * x)
         )
 
         // subscribe to the transformed data
-        transformedSource$
+        transformedSource
         .subscribe(x =&gt; console.log(x));
       &lt;/script&gt;
     </code></pre>
@@ -227,7 +306,7 @@
         }
 
         // create the observable and make some transformation on data:
-        let rangeObservable$ = Observable.create(function(observer){
+        let rangeObservable = Observable.create(function(observer){
           for(let i = 0; i&lt;10; i++){
             setTimeout(function(){
               observer.next(i);
@@ -236,7 +315,7 @@
         })
 
         // subscribe Observer to Observable:
-        let subscription = rangeObservable$.subscribe(rangeObserver);
+        let subscription = rangeObservable.subscribe(rangeObserver);
 
         // unsubscribe on button click
         btn = document.querySelector(&quot;button&quot;);
@@ -245,6 +324,11 @@
         })
       &lt;/script&gt;
     </code></pre>
+  </section>
+  <section><h3>Reference</h3>
+    <dl class="fa">
+      <dt><a href="https://angular.io/guide/observables">Observables @Angular guide</a></dt>
+    </dl>
   </section>
 </section>
 
@@ -325,15 +409,15 @@
       // The "normal" size of the presentation, aspect ratio will be preserved
       // when the presentation is scaled to fit different resolutions. Can be
       // specified using percentage units.
-      width: 960,
-      height: 700,
+      width: 1280,
+      height: 1024,
 
       // Factor of the display size that should remain empty around the content
       margin: 0.1,
 
       // Bounds for smallest/largest possible scale to apply to content
-      minScale: 0.2,
-      maxScale: 1.5,
+      // minScale: 0.2,
+      // maxScale: 1.5,
 
       // slide transition
       transition: 'concave', // none/fade/slide/convex/concave/zoom

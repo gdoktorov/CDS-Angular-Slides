@@ -200,11 +200,11 @@
 	</section>
 </section>
 
-<section data-min="20"><h1>Add routes to application</h1></section>
-<section><h2>Add routes to application</h2>
+<section data-min="20"><h1>Add router links</h1></section>
+<section><h2>Add router links</h2>
 	<section><h3>The navigation links</h3>
 		<dl class="fa">
-			<dt>We have to put links to our routing components, by using the  <code>routerLink</code> attribute</dt>
+			<dt>We have to put links to our routing components, by using the  <code>routerLink</code> directive</dt>
 			<dt>To specify where the route component should be rendered we use the  &lt;router-outlet&gt;&lt;/router-outlet&gt;</dt>
 		</dl>
 		<pre><code rel="nav.component.html" class="html5">
@@ -368,6 +368,73 @@
 	</section>
 </section>
 
+<section data-min="5"><h1>More on routerLink directive</h1></section>
+<section><h2>More on routerLink directive</h2>
+	<section><h3>Differences between routerLink and href</h3>
+		<dl class="fa">
+			<dt>routerLink directive can be used as attribute on A elements, just like the href HTML attribute, but they behave quite different.</dt>
+			<dt>The href HTML attribute will <span class="note">send request to the server</span> and the page will be reloaded.</dt>
+			<dt>The routerLink directive is not sending any request, just the component view will be rendered in the router outlet</dt>
+		</dl>
+	</section>
+	<section><h3>Differences between routerLink and href - Live Demo</h3>
+		<dl class="fa">
+			<dt>Add another link with <code>href="/books"</code> in nav.component.html and open the Network tab in Chrome Dev Tools.</dt>
+		</dl>
+		<pre><code rel="nav.component.html" class="html5">
+			<li><a routerLink="/books" routerLinkActive="active" >Books List</a></li>
+			<li><a href="/books">Books List as href</a></li>
+		</code></pre>
+	</section>
+	<section><h3>routerLink usage</h3>
+		<dl class="fa">
+			<dt>If the link is static, you can use the directive as attribute:</dt>
+			<pre><code rel="HTML" class="html5">
+				<a routerLink="/books">books list</a>
+			</code></pre>
+			<dt>If the link uses dynamic values, i.e. route parameters, we can pass an array of path segments, followed by the params for each segment:</dt>
+			<pre><code rel="HTML" class="html5">
+				<a [routerLink]="['/book/', book.id]">book detail</a>
+			</code></pre>
+		</dl>
+	</section>
+</section>
+
+<section data-min="5"><h1>Active router links</h1></section>
+<section><h2>Active router links</h2>
+	<section><h3>Overview</h3>
+		<dl class="fa">
+			<dt>The RouterLinkActive directive toggles CSS classes for the active RouterLink </dt>
+		</dl>
+		<pre><code rel="Syntax" class="html5">
+			<a routerLinkActive="space-delimited string of CSS classes"></a>
+		</code></pre>
+		<dl class="fa">
+			<dt>The Router will adds the CSS classes when the link is active, and will removes them when the link is inactive</dt>
+		</dl>
+	</section>
+	<section><h3></h3>
+		<pre><code rel="nav.component.html" class="html5">
+			<nav>
+				<ul>
+					<li><a routerLink="/home" routerLinkActive="active" >Home</a></li>
+					<li><a routerLink="/about" routerLinkActive="active" >About</a></li>
+					<li><a routerLink="/contacts" routerLinkActive="active" >Contacts</a></li>
+					<li><a routerLink="/books" routerLinkActive="active" >Books List</a></li>
+				</ul>
+			</nav>
+			<!-- The routed views render in the <router-outlet>-->
+			<router-outlet></router-outlet>
+		</code></pre>
+		<pre><code rel="nav.component.css" class="css">
+			.active{
+				color: red;
+			}
+		</code></pre>
+	</section>
+</section>
+
+
 <section data-min="10"><h1>More on RouterOutlet</h1></section>
 <section><h2>More on RouterOutlet</h2>
 	<section><h3>Named RouterOutlet</h3>
@@ -378,7 +445,7 @@
 		<pre><code rel="app.component.html" class="html">
 			<app-nav></app-nav>
 			<router-outlet></router-outlet>
-			<router-outlet name="secondary"></router-outlet>
+			<router-outlet name="bookList"></router-outlet>
 		</code></pre>
 	</section>
 	<section><h3>Output to a named Router Outlet</h3>
@@ -387,11 +454,25 @@
 		</dl>
 		<pre><code rel="TS" class="typescript">
 			{
-				 path: 'book-detail',
-				 component: BookDetailComponent,
-				 outlet: 'bookList'
+				path: 'books',
+				component: BooksListComponent,
+				outlet:'bookList'
 			},
 		</code></pre>
+		<pre><code rel="HTML" class="html">
+			<li><a [routerLink]="[{outlets:{bookList:['books']}}]" routerLinkActive="active" >Books List</a></li>
+		</code></pre>
+	</section>
+</section>
+
+<section data-min="20"><h1>Live Demo && Exercises</h1></section>
+<section><h2>Live Demo && Exercises</h2>
+	<section><h3>Todo App Routs</h3>
+		<dl class="fa">
+			<dt>Configure next 2 routes:</dt>
+			<dd><span class="note">/</span> => redirect to /todos</dd>
+			<dd><span class="note">/todos</span> => show list of todos.</dd>
+		</dl>
 	</section>
 </section>
 
